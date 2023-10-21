@@ -39,32 +39,23 @@ const TopBar = () => {
     })}
 
     return (
-      <nav className='bg-black flex justify-between'>
-        {/* <Link href='/' className='flex items-center gap-4'>
-        <Image src='/public/vercel.svg' alt='logo' width={28} height={28} />
-        <p className='text-heading3-bold text-light-1 max-xs:hidden'>DataPlace</p>
-      </Link> */
-        }
-        <p>DataPlace</p>
+      <nav className='topbar'>
+      <Link href='/' className='flex items-center gap-4'>
+        <Image src='/assets/logo.svg' alt='logo' width={28} height={28} />
+        <p className='text-heading3-bold text-light-1 max-xs:hidden'>Threads</p>
+      </Link>
 
-
-
-        <div className="flex">
-          <ConnectToTerraButton onClick={async () => {
-            const url = (await axios.get("http://localhost:3000/api/generateWidgetSession")).data.url
-            window.location = url
-          }} />
-
-          {/* button to test the method
-         */}
-          <button onClick={handleClick}>
-            Click me
-          </button>
-
-          <ModeToggle />
+      <div className='flex items-center gap-1'>
+        <div className='block md:hidden'>
+       
         </div>
-      </nav>
-    )
+
+        
+
+
+      </div>
+    </nav>
+    );
   }
 
   export default TopBar;

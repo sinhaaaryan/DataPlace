@@ -1,3 +1,5 @@
+import { NextRequest } from "next/server";
+
 const terra = new Terra(
   process.env.TERRA_DEV_ID ?? "",
   process.env.TERRA_API_KEY ?? "",
