@@ -10,5 +10,6 @@ export async function GET(request: NextRequest) {
         authSuccessRedirectUrl: "http://localhost:3000",
         authFailureRedirectUrl: "http://localhost:3000"
     })
+    // console.log("CHECK HEADER SECRET",resp);
     return NextResponse.json({ url: resp.url }, { status: 200}); 
 }

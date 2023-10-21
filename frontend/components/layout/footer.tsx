@@ -1,18 +1,9 @@
 "use client";
 import useLocalStorage from "@/lib/hooks/use-local-storage";
 import { BuyMeACoffee } from "../shared/icons";
+import { useSearchParams } from "next/navigation";
 
 export default function Footer() {
-  // Use the useLocalStorage hook to retrieve the user_id
-  // const [user_id] = useLocalStorage('user_id', null);
-
-  const handleRetrieveUserId = () => {
-    // if (user_id) {
-    //   console.log('User ID:', user_id);
-    // } else {
-    //   console.log('User ID not found in local storage');
-    // }
-  }
 
   return (
     <div className="absolute w-full py-5 text-center">
@@ -27,12 +18,6 @@ export default function Footer() {
           DataPlace Team @ HackHarvard
         </a>
       </p>
-      <button
-        onClick={handleRetrieveUserId}
-        className="bg-blue-500 text-white px-4 py-2 mt-2 rounded-md hover:bg-blue-600 cursor-pointer"
-      >
-        Retrieve User ID
-      </button>
     </div>
   );
 }

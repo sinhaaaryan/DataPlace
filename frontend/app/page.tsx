@@ -1,3 +1,4 @@
+"use client"
 import Card from "@/components/home/card";
 import { DEPLOY_URL } from "@/lib/constants";
 import { Github, Twitter } from "@/components/shared/icons";
@@ -5,23 +6,36 @@ import WebVitals from "@/components/home/web-vitals";
 import ComponentGrid from "@/components/home/component-grid";
 import Image from "next/image";
 import { nFormatter } from "@/lib/utils";
+import axios from "axios";
+import useLocalStorage from "@/lib/hooks/use-local-storage";
 
-export default async function Home() {
-  const { stargazers_count: stars } = await fetch(
-    "https://api.github.com/repos/steven-tey/precedent",
-    {
-      ...(process.env.GITHUB_OAUTH_TOKEN && {
-        headers: {
-          Authorization: `Bearer ${process.env.GITHUB_OAUTH_TOKEN}`,
-          "Content-Type": "application/json",
-        },
-      }),
-      // data will revalidate every 24 hours
-      next: { revalidate: 86400 },
-    },
-  )
-    .then((res) => res.json())
-    .catch((e) => console.log(e));
+export default function Home() {
+
+  
+
+
+
+
+  const handleButtonClick = async () => {
+    // retrieve the user_id from local storage
+
+    const user_id = localStorage.getItem('user_id')
+    
+    console.log("button clicked");
+    console.log("Before calling getData",user_id);
+
+    try {
+      const response = await axios.get("http://localhost:3000/api/getData", {
+        params: { user_id }, // Pass the user_id as a parameter to the API request
+      });
+  
+      const data = response.data; // Access the data from the response
+  
+      console.log("Data from getData", data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
 
   return (
     <>
@@ -47,13 +61,16 @@ export default async function Home() {
           className="mt-6 animate-fade-up text-center text-gray-500 opacity-0 [text-wrap:balance] md:text-xl"
           style={{ animationDelay: "0.25s", animationFillMode: "forwards" }}
         >
-          An opinionated collection of components, hooks, and utilities for your
-          Next.js project.
+          A marketplace for your data
         </p>
         <div
           className="mx-auto mt-6 flex animate-fade-up items-center justify-center space-x-5 opacity-0"
           style={{ animationDelay: "0.3s", animationFillMode: "forwards" }}
         >
+
+          <button onClick={handleButtonClick}>
+            Get Data
+          </button>
           {/* <a
             className="group flex max-w-fit items-center justify-center space-x-2 rounded-full border border-black bg-black px-5 py-2 text-sm text-white transition-colors hover:bg-white hover:text-black"
             href={DEPLOY_URL}
