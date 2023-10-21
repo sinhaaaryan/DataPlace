@@ -4,6 +4,8 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import NextTopLoader from 'nextjs-toploader'
 import { TailwindIndicator } from '@/components/tailwind-indicator'
+import TerraContext from '@/context/terra-context'
+import TerraProvider from '@/components/terra-provider'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -21,15 +23,17 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <NextTopLoader />
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          {children}
-          <TailwindIndicator />
-        </ThemeProvider>
+        {/* <TerraProvider> */}
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+            >
+            {children}
+            <TailwindIndicator />
+          </ThemeProvider>
+        {/* </TerraProvider> */}
       </body>
     </html>
   )
