@@ -46,6 +46,7 @@ export default function NavBar() {
 
     // Retrieve the user_id from url
     const user_id = searchParams.get('user_id');
+    console.log("in handleRetrieveUserId", user_id);
     const reference_id = searchParams.get('reference_id');
 
     setUser_id(user_id);
@@ -61,30 +62,51 @@ export default function NavBar() {
           : "bg-white/0"
           } z-30 transition-all`}
       >
+        <Link href="/" className="flex items-center font-display text-2xl">
+          <Image
+            src="/logo.png"
+            alt="Precedent logo"
+            width="30"
+            height="30"
+            className="mr-2 rounded-sm"
+          >
+
+          </Image>
+          <p>DataPlace</p>
+        </Link>
         <div className="mx-5 flex h-16 max-w-screen-xl items-center justify-between w-full">
-          <Link href="/" className="flex items-center font-display text-2xl">
-            <Image
-              src="/logo.png"
-              alt="Precedent logo"
-              width="30"
-              height="30"
-              className="mr-2 rounded-sm"
-            ></Image>
-            <p>DataPlace</p>
+          <div className="flex gap-5">
+          <Link href="/buyer" className="flex items-center font-display text-2xl">
+          <button className="bg-blue-500 text-white px-4 py-2 mt-2 rounded-md hover:bg-blue-600 cursor-pointer">
+              Buyer
+            </button>
           </Link>
+          <Link href="/seller" className="flex items-center font-display text-2xl">
+
+          <button className="bg-blue-500 text-white px-4 py-2 mt-2 rounded-md hover:bg-blue-600 cursor-pointer">
+              Seller
+            </button>
+          </Link>
+         </div>
           <div>
             <ConnectToTerraButton onClick={handleConnectToTerra} />
           </div>
           {/* if it's signed show the button
            */}
           {/* {isSignedIn && ( */}
-            <button
-              onClick={handleRetrieveUserId}
-              className="bg-blue-500 text-white px-4 py-2 mt-2 rounded-md hover:bg-blue-600 cursor-pointer"
-            >
-              Retrieve User ID
-            </button>
-            {/* )} */}
+          <button
+            
+            className="bg-orange-500 text-white px-4 py-2 mt-2 rounded-md hover:bg-orange-600 cursor-pointer"
+          >
+            Connect Metamask
+          </button>
+          <button
+            onClick={handleRetrieveUserId}
+            className="bg-blue-500 text-white px-4 py-2 mt-2 rounded-md hover:bg-blue-600 cursor-pointer"
+          >
+            Retrieve User ID
+          </button>
+          {/* )} */}
         </div>
       </div>
     </>
