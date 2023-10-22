@@ -30,6 +30,8 @@ export default function Home() {
 
       const orders = await instance.getOrders();
       console.log('orders', orders);
+
+      console.log("filtered orders", orders.filter(order => order[9] == 0n));
       setOrders(orders);
     }
     fetchOrders();
@@ -59,7 +61,9 @@ export default function Home() {
 
     const marketplace = "0x71C95911E9a5D330f4D621842EC243EE1343292e";
     const provider = new ethers.JsonRpcProvider("http://localhost:8545");
-    const instance = new ethers.Contract(marketplace, abi, provider);
+    const buyerSigner = new ethers.Wallet("0x5de4111afa1a4b94908f83103eb1f1706367c2e68ca870fc3fb9a804cdab365a",provider);
+
+    const instance = new ethers.Contract(marketplace, abi, buyerSigner);
 
     const order =  await instance.orders(orderId);
     const publicKey = order[6];
@@ -85,12 +89,19 @@ export default function Home() {
 
     console.log("encryptedData", encryptedData);
 
-    console.log("signer", this.signer);
-    const tx = await this.signer.data.sendTransaction({
-      "to": marketplace,
-      "value": 0
-    });
+    
 
+    // const tx = buyerSigner.sendTransaction({
+    //   "to": marketplace,
+    //   "value": 0
+    // })
+    console.log("buyerSigner", buyerSigner);
+
+    const dataHash = "0x2bd8946f3b8f6a46bd03f14412e3c194cc71007cbb4cf968146a7dfaf0b60dce";
+    const v = 28;
+    const r =        "0xe77c4cfe4b19f44ce553131ee8c3c8dffdff62c10f1c54de110c248ce70367b5";
+    const s =        "0x5a2bb397c56db28741e546606e83028579c1bc0b6e7bf04cfae5700e83820cbd";
+    const tx = await instance.fulfillOrder(orderId, v, r, s,  dataHash ,  encryptedData.map(x => x * 1n));
     console.log("tx", tx);
 
 
@@ -205,7 +216,7 @@ export default function Home() {
       </div>
       <div>
       <tbody>
-        {orders.map((order, index) => (
+        {orders.filter(order => order[9] === 0n).map((order, index) => (
           <tr key={order}>
             <td>Data type: {order[5]} </td>
 
