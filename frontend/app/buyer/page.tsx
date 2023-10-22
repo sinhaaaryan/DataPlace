@@ -6,6 +6,8 @@ import {useEffect, useState} from 'react';
 import { useRouter } from 'next/navigation';
 import {Dialog, DialogTrigger} from "@radix-ui/react-dialog";
 import {DialogContent, DialogDescription, DialogHeader, DialogTitle} from "@/components/ui/dialog";
+const { ethers } = require("ethers");
+const abi = require("../../abi.json")['abi'];
 
 
 
@@ -23,6 +25,21 @@ export default ({action = '/search'}) => {
 
     console.log("after",message)
   };
+
+  const placeOrder = async () => {
+    const publicKey = 111;
+    const N = 1909;
+    const marketplace = "0x71C95911E9a5D330f4D621842EC243EE1343292e";
+    const provider = new ethers.JsonRpcProvider("http://localhost:8545");
+    const buyerSigner = new ethers.Wallet("0x59c6995e998f97a5a0044966f0945389dc9e86dae88c7a8412f4603b6b78690d",provider);
+
+    const instance = new ethers.Contract(marketplace, abi, buyerSigner);
+
+    const tx = await instance.createOrder("type", 100n*10n**18n, publicKey, N);
+    console.log("tx", tx);
+
+
+  }
 
   return (
 
@@ -50,13 +67,13 @@ export default ({action = '/search'}) => {
           <Label htmlFor="cName">Company Name</Label>
           <Input type="text" id="cName" placeholder="" />
           <Label htmlFor="dType">Data Type</Label>
-          <Input type="text" id="dType" placeholder="Activity Data, Athlete Data" />
+          <Input type="text" id="dType" placeholder="Activity Data, Sleep Data" />
           <Label htmlFor="price">Price</Label>
           <Input type="number" id="price" placeholder="0.00" />
-              <Label htmlFor="pKey">Public Key</Label>
-              <Input type="number" id="pKey" placeholder="" />
-              <Label htmlFor="nB">buyN</Label>
-              <Input type="number" id="nB" placeholder="" />
+              <Label htmlFor="pKey" >RSA Public Key</Label>
+              <Input type="number" value="111"id="pKey" placeholder="" />
+              <Label htmlFor="nB" >RSA N</Label>
+              <Input type="number"value="1909" id="nB" placeholder="" />
 
 
 
@@ -64,7 +81,7 @@ export default ({action = '/search'}) => {
     <br/>
 
             <Link href="../transaction">
-            <button>
+            <button onClick={placeOrder}>
                 Submit
             </button>
 
