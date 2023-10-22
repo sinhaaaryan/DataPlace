@@ -52,13 +52,13 @@ export default function Home() {
         className="animate-fade-up bg-gradient-to-br from-black to-stone-500 bg-clip-text text-center font-display text-4xl font-bold tracking-[-0.02em] text-transparent opacity-0 drop-shadow-sm [text-wrap:balance] md:text-7xl md:leading-[5rem]"
         style={{ animationDelay: "0.15s", animationFillMode: "forwards" }}
       >
-        DataPlace
+        Buyer Form
       </h1>
       <p
         className="mt-6 animate-fade-up text-center text-gray-500 opacity-0 [text-wrap:balance] md:text-xl"
         style={{ animationDelay: "0.25s", animationFillMode: "forwards" }}
       >
-        A marketplace for your data
+        Fill in details to place a buy order
       </p>
       <div
         className="mx-auto mt-6 flex animate-fade-up items-center justify-center space-x-5 opacity-0"
@@ -68,13 +68,33 @@ export default function Home() {
        
 
         <div className="grid w-full max-w-sm items-center gap-1.5">
-      <Label htmlFor="email">Email</Label>
-      <Input type="email" id="email" placeholder="Email" />
-      <Label htmlFor="email">Email</Label>
-      <Input type="email" id="email" placeholder="Email" />
-      <Label htmlFor="email">Email</Label>
-      <Input type="email" id="email" placeholder="Email" />
+      <Label htmlFor="cName">Company Name</Label>
+      <Input type="text" id="cName" placeholder="" />
+      <Label htmlFor="dType">Data Type</Label>
+      <Input type="text" id="dType" placeholder="Activity Data, Athlete Data" />
+      <Label htmlFor="price">Price</Label>
+      <Input type="number" id="price" placeholder="0.00" />
+          <Label htmlFor="pKey">Public Key</Label>
+          <Input type="number" id="pKey" placeholder="" />
+          <Label htmlFor="nB">buyN</Label>
+          <Input type="number" id="bN" placeholder="" />
+
+
+
+
+
+          {/*Need to add submit functionality here*/}
+          <button className="bg-blue-500 text-white px-4 py-2 mt-2 rounded-md hover:bg-blue-600 cursor-pointer">
+            Submit
+          </button>
+
+          {/*<div className="bg-blue-500 text-white px-4 py-2 mt-2 rounded-md hover:bg-blue-600 cursor-pointer">*/}
+          {/*  <Input type="submit" value="Submit"/>*/}
+          {/*</div>*/}
+
     </div>
+
+
         {/* <a
           className="group flex max-w-fit items-center justify-center space-x-2 rounded-full border border-black bg-black px-5 py-2 text-sm text-white transition-colors hover:bg-white hover:text-black"
           href={DEPLOY_URL}
