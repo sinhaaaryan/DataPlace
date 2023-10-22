@@ -66,7 +66,7 @@ export default function Home() {
       >
 
         <Dialog>
-          <DialogTrigger>
+          <DialogTrigger className = "text-black">
             Data preferences
           </DialogTrigger>
           <DialogContent>
@@ -79,7 +79,18 @@ export default function Home() {
 
 
               </DialogDescription>
-              <input type="checkbox" name="Test"/>
+              <div className="flex gap-2 item-center">
+                <input type="checkbox" id="c1"/>
+                <label htmlFor="c1"> Athlete Data</label>
+                
+
+                <input type="checkbox" id="c2"/>
+                <label htmlFor="c2"> Sleep Data</label>
+
+              </div>
+
+
+
 
 
 
