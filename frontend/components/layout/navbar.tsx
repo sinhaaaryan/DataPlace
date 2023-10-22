@@ -10,6 +10,8 @@ import useLocalStorage from "@/lib/hooks/use-local-storage";
 import { useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { Cagliostro } from "next/font/google";
+// Import everything
+import { ethers } from "ethers";
 
 export default function NavBar() {
   // const { SignInModal, setShowSignInModal } = useSignInModal();
@@ -22,12 +24,13 @@ export default function NavBar() {
   const [reference_id, setReference_id] = useLocalStorage<String | null>('reference_id', null);
 
   const handleConnectToMetamask = async () => {
-    provider = new ethers.BrowserProvider(window.ethereum)
+    console.log("in handleConnectToMetamask");
+    const provider = new ethers.BrowserProvider((window as any).ethereum)
 
     // It also provides an opportunity to request access to write
     // operations, which will be performed by the private key
     // that MetaMask manages for the user.
-    signer = await provider.getSigner()
+    const signer = await provider.getSigner()
   }
 
   const handleConnectToTerra = async () => {
