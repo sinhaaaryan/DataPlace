@@ -8,6 +8,8 @@ import Image from "next/image";
 import { nFormatter } from "@/lib/utils";
 import axios from "axios";
 import useLocalStorage from "@/lib/hooks/use-local-storage";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
 
 export default function Home() {
 
@@ -63,9 +65,16 @@ export default function Home() {
         style={{ animationDelay: "0.3s", animationFillMode: "forwards" }}
       >
 
-        <button onClick={handleButtonClick}>
-          Get Data
-        </button>
+       
+
+        <div className="grid w-full max-w-sm items-center gap-1.5">
+      <Label htmlFor="email">Email</Label>
+      <Input type="email" id="email" placeholder="Email" />
+      <Label htmlFor="email">Email</Label>
+      <Input type="email" id="email" placeholder="Email" />
+      <Label htmlFor="email">Email</Label>
+      <Input type="email" id="email" placeholder="Email" />
+    </div>
         {/* <a
           className="group flex max-w-fit items-center justify-center space-x-2 rounded-full border border-black bg-black px-5 py-2 text-sm text-white transition-colors hover:bg-white hover:text-black"
           href={DEPLOY_URL}
