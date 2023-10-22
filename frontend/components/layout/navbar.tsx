@@ -9,6 +9,7 @@ import axios from "axios";
 import useLocalStorage from "@/lib/hooks/use-local-storage";
 import { useState } from "react";
 import { useSearchParams } from "next/navigation";
+import { Cagliostro } from "next/font/google";
 
 export default function NavBar() {
   // const { SignInModal, setShowSignInModal } = useSignInModal();
@@ -20,7 +21,14 @@ export default function NavBar() {
   const [user_id, setUser_id] = useLocalStorage<String | null>('user_id', null);
   const [reference_id, setReference_id] = useLocalStorage<String | null>('reference_id', null);
 
+  const handleConnectToMetamask = async () => {
+    provider = new ethers.BrowserProvider(window.ethereum)
 
+    // It also provides an opportunity to request access to write
+    // operations, which will be performed by the private key
+    // that MetaMask manages for the user.
+    signer = await provider.getSigner()
+  }
 
   const handleConnectToTerra = async () => {
     try {
@@ -95,7 +103,7 @@ export default function NavBar() {
            */}
           {/* {isSignedIn && ( */}
           <button
-            
+            onClick={handleConnectToMetamask}
             className="bg-orange-500 text-white px-4 py-2 mt-2 rounded-md hover:bg-orange-600 cursor-pointer"
           >
             Connect Metamask

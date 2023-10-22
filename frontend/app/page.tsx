@@ -14,6 +14,8 @@ export default function Home() {
   const handleButtonClick = async () => {
     // retrieve the user_id from local storage
 
+
+
     const user_id = localStorage.getItem('user_id')!.replace(/['"]+/g, '')
     
     console.log("button clicked");
@@ -27,6 +29,7 @@ export default function Home() {
       const data = response.data; // Access the data from the response
   
       console.log("Data from getData", data);
+      localStorage.setItem("apiData", JSON.stringify(data));
     } catch (error) {
       console.error("Error fetching data:", error);
     }
