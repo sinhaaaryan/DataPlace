@@ -8,6 +8,8 @@ import Image from "next/image";
 import { nFormatter } from "@/lib/utils";
 import axios from "axios";
 import useLocalStorage from "@/lib/hooks/use-local-storage";
+import {Dialog, DialogTrigger} from "@radix-ui/react-dialog";
+import {DialogContent, DialogDescription, DialogHeader, DialogTitle} from "@/components/ui/dialog";
 
 export default function Home() {
 
@@ -63,9 +65,29 @@ export default function Home() {
         style={{ animationDelay: "0.3s", animationFillMode: "forwards" }}
       >
 
-        <button onClick={handleButtonClick}>
-          Get Data
-        </button>
+        <Dialog>
+          <DialogTrigger>
+            Data preferences
+          </DialogTrigger>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Select your preferences</DialogTitle>
+              <DialogDescription>
+                Which data would you like to share?
+
+
+
+
+              </DialogDescription>
+              <input type="checkbox" name="Test"/>
+
+
+
+            </DialogHeader>
+          </DialogContent>
+
+
+        </Dialog>
         {/* <a
           className="group flex max-w-fit items-center justify-center space-x-2 rounded-full border border-black bg-black px-5 py-2 text-sm text-white transition-colors hover:bg-white hover:text-black"
           href={DEPLOY_URL}
