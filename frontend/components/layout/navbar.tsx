@@ -14,6 +14,9 @@ import { Cagliostro } from "next/font/google";
 import { ethers } from "ethers";
 
 export default function NavBar() {
+  const [metamask, setMetamask] = useState([]);
+  const [signer, setSigner] = useState([]);
+
   // const { SignInModal, setShowSignInModal } = useSignInModal();
   const searchParams = useSearchParams()
   const scrolled = useScroll(50);
@@ -23,14 +26,37 @@ export default function NavBar() {
   const [user_id, setUser_id] = useLocalStorage<String | null>('user_id', null);
   const [reference_id, setReference_id] = useLocalStorage<String | null>('reference_id', null);
 
-  const handleConnectToMetamask = async () => {
-    console.log("in handleConnectToMetamask");
-    const provider = new ethers.BrowserProvider((window as any).ethereum)
+  const connectWallet = async() => {
+    let signer = null;
 
-    // It also provides an opportunity to request access to write
-    // operations, which will be performed by the private key
-    // that MetaMask manages for the user.
-    const signer = await provider.getSigner()
+    let metamask;
+
+    if (window.ethereum == null) {
+    
+        // If MetaMask is not installed, we use the default provider,
+        // which is backed by a variety of third-party services (such
+        // as INFURA). They do not have private keys installed so are
+        // only have read-only access
+        console.log("MetaMask not installed; using read-only defaults")
+        metamask = ethers.getDefaultProvider()
+        setSigner(null);
+    } else {
+    
+        // Connect to the MetaMask EIP-1193 object. This is a standard
+        // protocol that allows Ethers access to make all read-only
+        // requests through MetaMask.
+        metamask = new ethers.BrowserProvider(window.ethereum);
+    
+        // It also provides an opportunity to request access to write
+        // operations, which will be performed by the private key
+        // that MetaMask manages for the user.
+        signer = await metamask.getSigner();
+        console.log("SIGNER", signer);
+        setMetamask(metamask);
+        setSigner(signer);
+    }
+
+    console.log("mm", metamask);
   }
 
   const handleConnectToTerra = async () => {
@@ -106,10 +132,10 @@ export default function NavBar() {
            */}
           {/* {isSignedIn && ( */}
           <button
-            onClick={handleConnectToMetamask}
+            onClick={connectWallet}
             className="bg-orange-500 text-white px-4 py-2 mt-2 rounded-md hover:bg-orange-600 cursor-pointer"
           >
-            Connect Metamask
+            {signer ? 'Wallet Connected' : 'Connect Metamask'}
           </button>
           <button
             onClick={handleRetrieveUserId}

@@ -14,11 +14,14 @@ export const metadata = {
   themeColor: "#FFF",
 };
 
+
+
 export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+
   return (
     <html lang="en">
       <body className={cx(sfPro.variable, inter.variable)}>
